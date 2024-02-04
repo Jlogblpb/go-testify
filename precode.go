@@ -6,6 +6,8 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 var cafeList = map[string][]string{
@@ -47,13 +49,16 @@ func mainHandle(w http.ResponseWriter, req *http.Request) {
 }
 
 func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
-	totalCount := 4
+	//totalCount := 4
 	// здесь нужно создать запрос к сервису
-	req := httptest.NewRequest("GET", "/cafe?city=moscow", nil)
+	req := httptest.NewRequest("GET", "/cafe?count=4?city=moscow", nil)
 
 	responseRecorder := httptest.NewRecorder()
 	handler := http.HandlerFunc(mainHandle)
 	handler.ServeHTTP(responseRecorder, req)
 
 	// здесь нужно добавить необходимые проверки
+
+	require.NoError(t)
+
 }
