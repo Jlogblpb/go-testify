@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -11,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
+func TestVerifingRequest(t *testing.T) {
 	//  Тест первый: Запрос сформирован корректно, сервис возвращает код
 	//ответа 200 и тело ответа не пустое.
 
@@ -34,7 +33,7 @@ func TestWrongCity(t *testing.T) {
 	// Сервис возвращает код ответа 400 и ошибку wrong city value в теле ответа.
 
 	// здесь нужно создать запрос к сервису
-	req := httptest.NewRequest("GET", "/cafe?count=4&city=Voronezh", nil)
+	req := httptest.NewRequest("GET", "/cafe?count=4&city=UnExistsCity", nil)
 
 	responseRecorder := httptest.NewRecorder()
 	handler := http.HandlerFunc(mainHandle)
@@ -43,12 +42,10 @@ func TestWrongCity(t *testing.T) {
 	//здесь нужно добавить необходимые проверки
 	body := responseRecorder.Body.String()
 	referenceAnswer := "wrong city value"
-	fmt.Println(body)
-	require.NotEmpty(t, body)
 	assert.Equal(t, referenceAnswer, body)
 }
 
-func TestWenCountMoreValue(t *testing.T) {
+func TestWhenCountMoreValue(t *testing.T) {
 	//  Тест третий:  Если в параметре count указано больше, чем есть всего,
 	// должны вернуться все доступные кафе.
 	totalCount := 4
