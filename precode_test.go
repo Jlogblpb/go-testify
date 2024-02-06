@@ -66,6 +66,3 @@ func TestWenCountMoreValue(t *testing.T) {
 	bodyMass := strings.Split(body, ",")
 	assert.Len(t, bodyMass, totalCount)
 }
-
-// bodyansw := responseRecorder.Body.String()
-// body := strings.Split(bodyansw, ",")
